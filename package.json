@@ -1,0 +1,32 @@
+{
+  "name": "weather_with_login",
+  "version": "2.0.0",
+  "description": "Node.js Weather app with authentication",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "jayanth, utsav,tarun",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-ejs-layouts": "^2.5.0",
+    "express-session": "^1.15.6",
+    "https": "^1.0.0",
+    "mongoose": "^5.7.5",
+    "node-fetch": "^2.6.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "unirest": "^0.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}

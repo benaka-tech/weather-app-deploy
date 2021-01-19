@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - 14.15.3
+  
+install:
+  - npm install
+script: 'true'
+start: 
+  -npm start

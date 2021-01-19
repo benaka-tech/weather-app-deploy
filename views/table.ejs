@@ -1,0 +1,66 @@
+<link rel="stylesheet" href="style2.css">
+<head>
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #000000;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body style="background-image: url('img/bg.jpg');">
+
+<h2>User Table</h2>
+
+<input id="myInput" type="text" placeholder="Search..">
+<br><br>
+
+
+<table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Date</th>
+    </tr>
+    </thead>
+    <tbody id="myTable">
+    <tr>
+        <% for(var i=0;i < users.length;i++)  {%>  
+            <td><%= users[i].name %></td>
+            <td><%= users[i].email %></td>
+            <td><%= users[i].password %></td>
+            <td><%= users[i].date %></td>
+           
+    </tr>
+    <% } %>
+  
+</table>
+  
+
+
+</body>
+

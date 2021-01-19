@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weatherly</title>
+    <link rel="stylesheet" href="css/bootstrap. min.css"integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ui.css">
+    <link rel="stylesheet" href="css/stylecard.css">
+    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css'>
+    <link rel="stylesheet" href="../bins/lib/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" >
+    
+    
+    <script type="text/javascript" src="../bins/lib/skycons/skycons.js"></script>
+        <script type="text/javascript" src="../bins/lib/angular/angular.min.js"></script>
+        <script type="text/javascript" src="../bins/lib/angular/angular-animate.min.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+        <script type="text/javascript" src="../bins/wl-ng-weather.js"></script>
+        
+       
+
+
+
+  </head>
+
+  <body style="background-image: url('img/bg.jpg');background-repeat: no-repeat; background-size: cover;" >
+    <% if (data === '') { %>
+    <div class="container mt-5 col-lg-6">
+      <p class="display-4 text-center"></p>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Search weather of your location</h5>
+          <form action="/home" method="post">
+            <div class="form-group">
+              <input type="text" class="form-control" name="location" placeholder="Location">
+              <p class="display-5 mt-3 text-muted">Default location is Bangalore, In</p>
+            </div>
+            <button type="submit" class="btn btn-primary">Go</button>
+          </form>
+        </div>
+      </div>
+    </div>
+ 
+   <h4>Today's Date:<span id="weather-date"></span></h4>
+
+      <!-- BEGIN: weather -->
+      <div id="owl-demo" class="owl-carousel owl-theme">
+        <% for (weather of weather_data) { %>   
+        <div class="item"> <div class="page-content page-container" id="page-content">
+     
+          
+      
+                      <!--weather card-->
+                      <div class="card card-weather">
+                       
+                          <div class="card-body">
+                            
+                              <div class="weather-date-location">
+                                
+                                  <h3><%= weather.city %></h3>
+                                  
+                              </div>
+                              <div class="weather-data d-flex">
+                                  <div class="mr-auto">
+                                      <h4 class="display-3"><%= weather.temperature %>°F </h4>
+                                      <p> <%= weather.description %></p>
+                                      
+                                  </div>
+                              </div>
+                          </div>
+                          
+                          <div class="card-body p-0">
+                              <div class="d-flex weakly-weather" >
+                                  
+                        
+                              
+                     
+                      <!--weather card ends-->
+                  </div>
+              </div>
+          </div>
+      </div></div>
+        
+      
+      <% } %>
+     
+    </div>
+
+    <% } else if (data === '0') { %>
+    <div class="container mt-5">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Oops! Lost in space🚀, try locations from Earth🌏 !</p>
+        </div>
+      </div>
+      <div class="text-center">
+        <a href="/home" class="btn btn-primary mt-5 mx-auto">New location</a>
+      </div>
+    </div>
+    <% } else { %>
+    <div class="container mt-5" >
+      <p class="display-4 text-center"></p>
+      <div class="card" style="background-image: url('<%= stat %>'); background-size: cover;"/>
+        <div class="card-body"/>
+          <h5 class="card-title">Weather in <%= data.name %>, <%= data.sys.country %></h5>
+          <p class="text-muted">Lat: <%= data.coord.lat %>, Lon: <%= data.coord.lon %></p>
+          <img class="float-right" src="http://openweathermap.org/img/wn/<%= data.weather[0].icon %>@2x.png" alt="icon">
+          <p class="display-1"><%= data.main.temp%><sup>o</sup>C</p>
+          <span class="text-muted">Feels like <%= data.main.feels_like %><sup>o</sup>C</span>
+          <h5 class="text-capitalize font-weight-bold"><%= data.weather[0].description %></h5>
+          <div class="overflow-x">
+            <span class="pr-5 inf"><i class="fas fa-wind"></i> Wind <%= data.wind.speed %> m/sec</span>
+            <span class="pr-5 inf"><i class="fas fa-paper-plane"></i> Pressure <%= data.main.pressure %> mb</span>
+            <span class="pr-5 inf"><i class="fas fa-tint"></i> Humidity <%= data.main.humidity %>%</span>
+            <span class="pr-5 inf"><i class="fas fa-eye"></i> Visibility <%= data.visibility/1000 %> km</span>
+            <span class="pr-5 inf"><i class="fas fa-cloud"></i> Cloudiness <%= data.clouds.all %>%</span>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <a href="/home" class="btn btn-primary mt-5 mx-auto">New location</a>
+      </div>
+      
+    </div>
+   
+
+
+
+    
+    <div class="container mt-5 col-lg-6">
+      <iframe width="1500" height="500"
+      src="https://embed.windy.com/embed2.html?lat=20.180&lon=90.527&detailLat=12.972&detailLon=77.594&width=1500&height=500&zoom=5&level=surface&overlay=wind&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1"
+      frameborder="0" style="width:inherit;display: block"></iframe>
+    
+     </div>
+    
+     
+    
+    <% } %>
+   
+
+
+   
+
+
+
+  
+
+
+
+  <!-- END: weather -->
+  
+</section>
+    <script src="https://kit.fontawesome.com/ad862d8e11.js" crossorigin="anonymous"></script>
+    <script src="js/ui.js"></script>
+   
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
+<script>
+ $('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:3
+        }
+    }
+})
+</script>
+
+
+<script>
+  var dt = new Date();
+  document.getElementById("weather-date").innerHTML = dt.toLocaleDateString();
+  </script>
+
+  </body>
+
+</html>
